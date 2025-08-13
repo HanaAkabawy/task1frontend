@@ -10,8 +10,8 @@ const ResetPassword = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Get token from localStorage (since ForgotPassword stored it there)
-  const token = localStorage.getItem("resetToken");
+  const query = new URLSearchParams(useLocation().search);
+  const token = query.get("token");
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
@@ -25,7 +25,7 @@ const ResetPassword = () => {
 
     try {
       await axios.post("http://127.0.0.1:8000/api/auth/reset-password", {
-        token,
+        
         newPassword
       });
 

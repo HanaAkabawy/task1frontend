@@ -13,19 +13,11 @@ export default function ForgotPassword() {
     setSuccessMessage("");
 
     try {
-      const res = await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
+      await axios.post("http://localhost:8000/api/auth/forgot-password", { email });
 
-      if (res.data && res.data.token) {
-        localStorage.setItem("resetToken", res.data.token);
-        setSuccessMessage("Reset email sent! Redirecting to reset password page...");
-        setTimeout(() => {
-          window.location.href = "/resetpass";
-        }, 2000);
-      } else {
-        setErrorMessage("Unexpected response from server.");
-      }
+      setSuccessMessage("Reset email sent! Please check your inbox.");
     } catch (err) {
-      setErrorMessage(err.response?.data?.message || "Something went wrong.");
+      setErrorMessage(err.response?.data?.msg || "Something went wrong.");
     }
   };
 
@@ -44,8 +36,8 @@ export default function ForgotPassword() {
           <button type="submit">Send Reset Link</button>
         </form>
 
-        {errorMessage && <p className="auth-message">{errorMessage}</p>}
-        {successMessage && <p className="auth-message">{successMessage}</p>}
+        {errorMessage && <p className="auth-message error">{errorMessage}</p>}
+        {successMessage && <p className="auth-message success">{successMessage}</p>}
       </div>
     </div>
   );

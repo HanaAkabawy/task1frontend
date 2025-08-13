@@ -28,9 +28,9 @@ function Login() {
 
       setMessage(res.data.msg);
 
-      // If login is successful, redirect to dashboard
+      
       if (res.status === 200) {
-        navigate('/dashboard');
+        navigate('/users');
       }
     } catch (err) {
       if (err.response) {
